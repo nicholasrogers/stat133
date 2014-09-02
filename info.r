@@ -1,0 +1,5 @@
+name = "Nicholas Rogers"
+SID = "23458796"
+email = "nicholasrogers27@berkeley.edu"
+github_name = "nicholasrogers"
+status = "enrolled"
