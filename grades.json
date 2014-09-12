@@ -5,5 +5,19 @@
     "email": "nicholasrogers27@berkeley.edu", 
     "github_name": "nicholasrogers", 
     "status": "enrolled", 
-    "grades": {}
+    "grades": {
+        "hw1": {
+            "note": "", 
+            "hash": "733713184635e4ade25c0d614411120706dd41fa", 
+            "earned": 0, 
+            "possible": 14, 
+            "penalty": 0, 
+            "parts": {
+                "ex1": {
+                    "possible": 14, 
+                    "earned": 0
+                }
+            }
+        }
+    }
 }
