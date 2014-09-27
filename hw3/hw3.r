@@ -367,10 +367,9 @@ best.plot <- c("Sport", "Sex")
 # the rows/cols. The resulting barplot should show bars in 
 # increasing height.
 athTab0 <- table(athletes$Sport)
-orderSport.number <- order(athTab0, decreasing=TRUE)[athletes$Sport]
-orderSport <- levels(athletes$Sport)[orderSport.number]
-athTab3 <- table(orderSport, athletes$Sex)
 
+athTab.ordered <- athTab[, levels(athletes$Sport)[order(athTab0, decreasing = TRUE)]]
+barplot(athTab.ordered, las = 2, ylab = "Gender Participation", main = "Male and Female Participation in 2012 Olympics",  beside = TRUE)
 # Q17. Finally to make the plot more informaation rich, try turning
 # the x-axis labels on their side. To do this, find a parameter
 # in par() that will rotate the x-axis tick mark labels. Even though
@@ -378,7 +377,7 @@ athTab3 <- table(orderSport, athletes$Sex)
 # parameter can be added in the call to barplot().
 # Also find and use a parameter to shrink the text for these labels. 
 # Lastly, add a title to the plot.
-
+barplot(athTab.ordered, las = 2, ylab = "Gender Participation", main = "Male and Female Participation in 2012 Olympics",  beside = TRUE, cex.axis = .9)
 
 # This was the final version of the 4th plot.
 
