@@ -337,7 +337,7 @@ n.sports <- length(levels(athletes$Sport))
 
 
 # what should beside be set to, T/F?
-set.beside <- your answer
+#set.beside <- your answer
 
 ### Barplot with beside = TRUE provides the easiest comparison. 
 
