@@ -229,7 +229,158 @@ top5.xcoordinates <- log((SO2012Ctry[(order(SO2012Ctry$Total, decreasing = T)[1:
 top5.ycoordinates <- log(SO2012Ctry[(order(SO2012Ctry$Total, decreasing = T)[1:5]), "pop"]) 
 text(top5.xcoordinates, top5.ycoordinates, labels = top5, col = "blue")
 # your plotting code here, including a new call to text() 
-symbols(log(GDP_per_person_won), log(subset(SO2012Ctry$pop, SO2012Ctry$Total != 0)), circles = sqrt(subset(SO2012Ctry$Total, SO2012Ctry$Total != 0)), ylim = c(8, 24))
+symbols(log(GDP_per_person_won), log(subset(SO2012Ctry$pop, SO2012Ctry$Total != 0)), circles = sqrt(subset(SO2012Ctry$Total, SO2012Ctry$Total != 0)), xlab = "log of GDP per Person", ylab = "log of population size", main = "GDP per Person and Population Size of Countries in the Olympics (circle size relative to number of medals won)", ylim = c(9, 24))
 points(log(GDP_per_person_nowin), log(subset(SO2012Ctry$pop, SO2012Ctry$Total == 0)), pch = 46)
 text(top5.xcoordinates, top5.ycoordinates, labels = top5, col = "blue")
 ######################################
+# PLOT 3.
+# Plotting points on maps can help us see geographic relationships
+# 
+#Q10. Install the maps library and load it into your R session.
+# Make a map of the world, using the function map(),
+# where the countries are filled with a light grey color.
+
+
+world <- map("world", col = "grey75", interior = TRUE, fill = TRUE)
+
+#Q11. Use the symbols() function to add circles to the map where
+# the circles are proportional in area to the number of medals
+# won by the country. You may find the add parameter useful.
+# (Be sure to NOT plot circles for countries with 0 medals).
+# adjust the size of the circles if necessary
+
+# Check what variables you have in the dataframe using names().
+
+# pull out the contries that won at least one medal (you will need at least
+# the contries longitude, latitude and Total.)
+
+wonMedal <- subset(SO2012Ctry$Country, SO2012Ctry$Total != 0)
+map("world", col = "grey75", interior = TRUE, fill = TRUE)
+symbols(subset(SO2012Ctry$longitude, SO2012Ctry$Country %in% wonMedal), subset(SO2012Ctry$latitude, SO2012Ctry$Country %in% wonMedal), circles = sqrt(subset(SO2012Ctry$Total, SO2012Ctry$Total != 0)), add = TRUE )
+
+
+#Q12. Remake the plot and fill in the circles with a partially
+# transparent gold color. To create this color: 
+# install the RColorBrewer library and load it into R;
+# call display.brewer.all() to examine the palettes;
+# choose a palette and ask for the names of a few colors 
+# using brewer.pal();
+# pick one of the colors and create a new one that is transparent
+# by adding two more digits to the end of the name, e.g.,
+# if you want to use "#FEB24C" then make it transparent with
+# e.g. myColor = "#FEB24CAA" or   "#FEB24C88"
+
+# You only need to call these two lines once:
+
+
+display.brewer.all()
+brewer.pal(8, "Dark2")[6]
+
+myGold <- "#E6AB02AA"
+
+map("world", col = "grey75", interior = TRUE, fill = TRUE)
+symbols(subset(SO2012Ctry$longitude, SO2012Ctry$Country %in% wonMedal), subset(SO2012Ctry$latitude, SO2012Ctry$Country %in% wonMedal), circles = sqrt(subset(SO2012Ctry$Total, SO2012Ctry$Total != 0)), add = TRUE, bg = myGold)
+
+
+## That was the FINAL version of this plot
+
+##############################################
+# PLOT 4
+# During the news coverage of the Olympics it was noted that this
+# Olympics had by far the greatest number of women competing and
+# that some countries had female athletes competing for the first time.
+
+# The data file is called London2012ALL_ATHLETES.rda
+# and contains information about every athlete who competed 
+# in the Olympics.
+
+load("London2012ALL_ATHLETES.rda")
+
+# There is one observation for each athlete. 
+# (Actually, about 20 athletes have two records if they
+# competed in different sporting events. Let's not worry about that.)
+
+#Q13. We are interested in the relationship between Sport and Sex. 
+# Examine the data frame and check which type of data each variable is.
+names(athletes)
+### Name : nominal
+### Sex : nominal
+### Sport : nominal
+### Country : nominal
+### MoreThan1Sport : ordinal or nominal is OK
+
+# The table() and sum() functions might be helpful for answering 
+# some of the questions below. 
+
+# How many athletes competed in the 2012 Olympics?
+n.athletes <- length(athletes$Name)
+
+# How many women competed?
+n.athletes.f <- length(subset(athletes, athletes$Sex == "F")$Name)
+4835
+# What proportion of the participants were women?
+frac.women <- n.athletes.f/n.athletes
+
+# How many sports were there?
+n.sports <- length(levels(athletes$Sport))
+33
+
+#Q14. Make a barplot of Sport and Sex that emphasizes the 
+# important differences. To do this, first make a table of 
+# Sex by Sport. This will be the input to barplot(). 
+# Make the barplot with the parameter beside = TRUE and 
+# and again with beside = FALSE. Determine which of these 
+# barplots provides the easiest comparison. 
+
+# athTab <- table()
+# make two barplots
+
+
+# what should beside be set to, T/F?
+set.beside <- your answer
+
+### Barplot with beside = TRUE provides the easiest comparison. 
+
+#Q15. Remake the barplot above, but this time switch the order 
+# of Sport and Sex in the call to table(). Use the value for
+# the beside parameter that you decided was best for the 
+# plot in Q 14. 
+
+# athTab2 <- table()
+# make barplot
+
+
+# Compare the barplot with (Sex, Sport) vs (Sport, Sex). 
+# Which makes a more interesting visual comparison, plot 1 or 2?
+# store your answer (1 or 2) in best.plot.
+
+# best.plot <- your answer
+
+
+# Q16. Notice that the bars are in alphabetical order by sport.
+# To facilitate comparisons, we might want to arrange
+# the bars in order of participation in a sport. To do this,
+# call order() on the return value from making a table of Sport alone.
+# Assign this vector to a variable, say orderSport.
+# Then reorder your two-way table of Sport and Sex,
+# using the orderSport vector and [ ] to subset the table and rearrange
+# the rows/cols. The resulting barplot should show bars in 
+# increasing height.
+
+# orderSport <- your code here
+# barplot( your code here )
+
+
+# Q17. Finally to make the plot more informaation rich, try turning
+# the x-axis labels on their side. To do this, find a parameter
+# in par() that will rotate the x-axis tick mark labels. Even though
+# you found the parameter in the par() function, this
+# parameter can be added in the call to barplot().
+# Also find and use a parameter to shrink the text for these labels. 
+# Lastly, add a title to the plot.
+
+
+# This was the final version of the 4th plot.
+
+# You are DONE.
+# Hope you had fun making increasingly complex and attractive plots with R.
