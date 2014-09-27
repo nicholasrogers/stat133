@@ -332,12 +332,12 @@ n.sports <- length(levels(athletes$Sport))
 # and again with beside = FALSE. Determine which of these 
 # barplots provides the easiest comparison. 
 
-# athTab <- table()
-# make two barplots
-
+athTab <- table(athletes$Sex, athletes$Sport)
+barplot(athTab, col = c("#B3CDE3", "#F2F2F2"), las = 2, ylab = "Gender Participation", main = "Male and Female Participation in 2012 Olympics", legend = c("Male", "Female"))
+barplot(athTab, col = c("#B3CDE3", "#F2F2F2"), las = 2, ylab = "Gender Participation", main = "Male and Female Participation in 2012 Olympics", legend = c("Male", "Female"), beside = TRUE)
 
 # what should beside be set to, T/F?
-#set.beside <- your answer
+set.beside <- TRUE
 
 ### Barplot with beside = TRUE provides the easiest comparison. 
 
@@ -346,15 +346,15 @@ n.sports <- length(levels(athletes$Sport))
 # the beside parameter that you decided was best for the 
 # plot in Q 14. 
 
-# athTab2 <- table()
-# make barplot
+athTab2 <- table(athletes$Sport, athletes$Sex)
+barplot(athTab2, las = 2, ylab = "Gender Participation", main = "Male and Female Participation in 2012 Olympics",  beside = TRUE)
 
 
 # Compare the barplot with (Sex, Sport) vs (Sport, Sex). 
 # Which makes a more interesting visual comparison, plot 1 or 2?
 # store your answer (1 or 2) in best.plot.
 
-# best.plot <- your answer
+best.plot <- c("Sport", "Sex")
 
 
 # Q16. Notice that the bars are in alphabetical order by sport.
@@ -366,10 +366,10 @@ n.sports <- length(levels(athletes$Sport))
 # using the orderSport vector and [ ] to subset the table and rearrange
 # the rows/cols. The resulting barplot should show bars in 
 # increasing height.
-
-# orderSport <- your code here
-# barplot( your code here )
-
+athTab0 <- table(athletes$Sport)
+orderSport.number <- order(athTab0, decreasing=TRUE)[athletes$Sport]
+orderSport <- levels(athletes$Sport)[orderSport.number]
+athTab3 <- table(orderSport, athletes$Sex)
 
 # Q17. Finally to make the plot more informaation rich, try turning
 # the x-axis labels on their side. To do this, find a parameter
