@@ -1,4 +1,5 @@
-library(RUnit)
+#install.packages("RUnit") 
+#library(RUnit)
 errMsg = function(err) print(paste("ERROR:", err))
 load('hw4-tests.rda') 
 
@@ -19,15 +20,18 @@ truncate <- function(input.vector, trim) {
 
         stopifnot(0<=trim & trim<=0.5) # this line makes sure trim in [0,0.5]
 
-            # your code here
+            upperquantile <- quantile(input.vector, probs = 1 - trim)
+            lowerquantile <- quantile(input.vector, probs = trim)
+            truncated.vector <- subset(input.vector, input.vector >= lowerquantile & input.vector <= upperquantile)
+            return(truncated.vector)
 
     }
 
-tryCatch(checkEquals(c(2, 3, 4), truncate(1:5, trim=0.25)), error=function(err)
-                  errMsg(err))
+#tryCatch(checkEquals(c(2, 3, 4), truncate(1:5, trim=0.25)), error=function(err)
+                 # errMsg(err))
 
-tryCatch(checkIdentical(integer(0), truncate(1:6, trim=0.5)),
-                  error=function(err) errMsg(err))
+#tryCatch(checkIdentical(integer(0), truncate(1:6, trim=0.5)),
+                  #error=function(err) errMsg(err))
 
 
 # Suppose that you are given some dataset where all variables (columns) are
@@ -46,12 +50,18 @@ tryCatch(checkIdentical(integer(0), truncate(1:6, trim=0.5)),
 # second the upper bound
 
 outlierCutoff <- function(data) {
-        # your code here
+        Q1 <- apply(data, 2, quantile, probs = .25)
+        Q3 <- apply(data, 2, quantile, probs = .75)
+        IQR <- Q3 - Q1 
+        uppercutoff <- apply(data, 2, median) + 1.5*IQR
+        lowercutoff <- apply(data, 2, median) - 1.5*IQR 
+        outlier.cutoffs <- matrix(data = c(lowercutoff, uppercutoff), nrow = 2, byrow = TRUE)
+        return(outlier.cutoffs)
 
 }
 
-tryCatch(checkIdentical(outlier.cutoff.t, outlierCutoff(ex1.test)),
-                  error=function(err) errMsg(err))
+#tryCatch(checkIdentical(outlier.cutoff.t, outlierCutoff(ex1.test)),
+                #  error=function(err) errMsg(err))
 
 
 # Again, suppose that you are given some dataset where all variables are numeric.
@@ -76,12 +86,29 @@ tryCatch(checkIdentical(outlier.cutoff.t, outlierCutoff(ex1.test)),
 removeOutliers <- function(data, max.outlier.rate) {
 
         stopifnot(max.outlier.rate>=0 & max.outlier.rate<=1)
-
-            # your code here
+        Q1 <- apply(data, 2, quantile, probs = .25)
+        Q3 <- apply(data, 2, quantile, probs = .75)
+        IQR <- Q3 - Q1 
+        uppercutoff <- apply(data, 2, median) + 1.5*IQR
+        lowercutoff <- apply(data, 2, median) - 1.5*IQR
+        
+        outliersV1 <- subset(data$V1, data$V1 < lowercutoff[[1]] | data$V1 > uppercutoff[[1]])
+        outliersV2 <- subset(data$V2, data$V2 < lowercutoff[[2]] | data$V2 > uppercutoff[[2]])
+        outliersV3 <- subset(data$V3, data$V3 < lowercutoff[[3]] | data$V3 > uppercutoff[[3]])
+        outliersV4 <- subset(data$V4, data$V4 < lowercutoff[[4]] | data$V4 > uppercutoff[[4]])
+        outliersV5 <- subset(data$V5, data$V5 < lowercutoff[[5]] | data$V5 > uppercutoff[[5]])
+        outliers <- list(outliersV1, outliersV2, outliersV3, outliersV4, outliersV5)
+        outlierlength <- NULL
+        for(i in 1:5) {outlierlength[i] <- length(outliers[[i]])}
+        outliers.p <- outlierlength/apply(data, 2, length) 
+        subset.data <- data[outliers.p <= c(max.outlier.rate)]
+        return(subset.data)
+        
+            
     }
 
-tryCatch(checkEquals(remove.outlier.t, removeOutliers(ex1.test, 0.25), ),
-                  error=function(err) errMsg(err))
+#tryCatch(checkEquals(remove.outlier.t, removeOutliers(ex1.test, 0.25), ),
+                 # error=function(err) errMsg(err))
 
 
 # Suppose you are given a data frame where all but one of the variables are
@@ -103,11 +130,11 @@ tryCatch(checkEquals(remove.outlier.t, removeOutliers(ex1.test, 0.25), ),
 
 meanByLevel <- function(data) {
 
-        # your code here
+        
 }
 
-tryCatch(checkIdentical(mean.by.level.t, meanByLevel(iris), checkNames=F),
-         error=function(err) errMsg(err))
+#tryCatch(checkIdentical(mean.by.level.t, meanByLevel(iris), checkNames=F),
+         #error=function(err) errMsg(err))
 
 
 # Suppose you are given a data frame with the same structure as in the previous
@@ -130,13 +157,13 @@ tryCatch(checkIdentical(mean.by.level.t, meanByLevel(iris), checkNames=F),
 #   NOTE: you may need to use R's transpose function to make sure that the
 #   dimensions of your return value are correct.
 
-stdLevelDiff <- function(data) {
+#stdLevelDiff <- function(data) {
 
         # your code here
-}
+#}
 
-tryCatch(checkIdentical(std.level.diff.t, abs(stdLevelDiff(iris)), checkNames=F),
-                  error=function(err) errMsg(err))
+#tryCatch(checkIdentical(std.level.diff.t, abs(stdLevelDiff(iris)), checkNames=F),
+                 # error=function(err) errMsg(err))
 
 
 # Implement the function "simpleNormSim". This function should generate several
@@ -157,11 +184,11 @@ tryCatch(checkIdentical(std.level.diff.t, abs(stdLevelDiff(iris)), checkNames=F)
 #   this list should be a sample of <sim.size> random normal variables with
 #   variance given by <var> and mean given by the jth entry of <means>.
 
-simpleNormSim <- function(means, sim.size=50, var=1) {
+#simpleNormSim <- function(means, sim.size=50, var=1) {
 
         # your code here
-}
+#}
 
-set.seed(47)
-tryCatch(checkIdentical(simple.norm.sim.t, simpleNormSim(c(25, 50, 75))),
-                  error=function(err) errMsg(err))
+#set.seed(47)
+#tryCatch(checkIdentical(simple.norm.sim.t, simpleNormSim(c(25, 50, 75))),
+              #    error=function(err) errMsg(err))
