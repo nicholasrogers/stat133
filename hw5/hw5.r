@@ -37,11 +37,11 @@ standMatrixVariables <- function(data.matrix) {
     mean.col <- apply(data.matrix, 2, mean)
     mean.differnece.matrix <- sapply(mean.col, function(x) sapply(mean.col, function(y) x-y))
     sd.both.columns <- NULL
-    for(i in 1:ncol(ex3.test4)){
-      for(j in 1:ncol(ex3.test4)){
-        print(sd(c(data.matrix[, i], data.matrix[, j])) 
-      }
-    } #I don't know how to use the output of the for loop and put it into a matrix. Fun. Times. 
+    #for(i in 1:ncol(ex3.test4)){
+     # for(j in 1:ncol(ex3.test4)){
+       # print(sd(c(data.matrix[, i], data.matrix[, j])) 
+     # }
+  #  } #I don't know how to use the output of the for loop and put it into a matrix. Fun. Times. 
 }
 
 #tryCatch(checkEquals(stand.matrix.variables.t,
