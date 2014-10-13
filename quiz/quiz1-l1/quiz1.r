@@ -21,21 +21,22 @@
 
 
 # The variable br indicates the number of bedrooms in each house. Please create
-# the following two subsets and store them with the indicated names:
-# 1) houses with more than 3 rooms <rooms.greater>
-# 2) houses with up to and including 3 rooms <rooms.less>
+# two new data frames that are subsets of the original data frame, according to
+# these criteria:
+# 1) houses with more than 3 rooms <housing.large>
+# 2) houses with up to and including 3 rooms  <housing.small>
 
-# rooms.greater <- your code here
-# rooms.less <- your code here
+# housing.large <- your code here
+# housing.small <- your code here
 
 
 
 
 # For each of your subsets, create a vector giving the price of each house. Name
-# these variables <rooms.greater.price> and <rooms.less.price>.
+# these variables <housing.large.price> and <housing.small.price>.
 
-# rooms.greater.price <- your code here
-# rooms.less.price <- your code here
+# housing.large.price <- your code here
+# housing.small.price <- your code here
 
 
 
@@ -44,9 +45,9 @@
 # following arguments:
 #
 # <price.cutoff>: a numeric constant indicating the price cutoff used for houses
-# <prices>: a numeric vector of housing prices
-# <lsqft>: a numeric vector giving lsqft for each of the observations in
-#   <prices> (i.e. this vector will need to be the same length as prices)
+# <prices>      : a numeric vector of housing prices
+# <lsqft>       : a numeric vector giving lsqft for each of the observations in
+#               <prices> (i.e. this vector will need to be the same length as prices)
 #
 # Your function should return the average of <lsqft> for all observations with <price>
 # stricly greater than <price.cutoff>.
