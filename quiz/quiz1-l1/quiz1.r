@@ -17,7 +17,7 @@ med.price <- median(housing$price)
 # <price.diffs>. Note that this should be a numeric vector with length equal to
 # the number of observations in the dataset
 
-price.diffs <- housing$price - mean.price
+price.diffs <- abs(housing$price - mean.price)
 
 # The variable br indicates the number of bedrooms in each house. Please create
 # two new data frames that are subsets of the original data frame, according to
