@@ -1,0 +1,15 @@
+INFO:root:Executed R('load(\'../../instructor/assignments/quiz/quiz1-l1/quiz1-l1-tests.rda\')')
+INFO:root:(1 points) R('all.equal(mean.price, test$var1)')[0] is True
+INFO:root:(1 points) R('all.equal(med.price, test$var2)')[0] is True
+INFO:root:(1 points) R('all.equal(price.diffs, test$app)')[0] is True
+INFO:root:(1 points) R('all.equal(housing.large, test$sub1)')[0] is True
+INFO:root:(1 points) R('all.equal(housing.small, test$sub2)')[0] is True
+INFO:root:(1 points) R('all.equal(housing.large.price, test$sub3)')[0] is True
+INFO:root:(1 points) R('all.equal(housing.small.price, test$sub4)')[0] is True
+INFO:root:Executed R('fun.output <- sqftByPrice(test$fun1, test$fun2, test$fun3)')
+INFO:root:(2 points) R('all.equal(fun.output, test$fun.out)')[0] is True
+INFO:root:(1 points) Is there a title'? is y
+INFO:root:(1 points) Is the pch set? is y
+INFO:root:(1 points) Is there an identity line? is y
+INFO:root:(1 points) Is the identity line red? is y
+INFO:root:You got a 13 out of 13.
