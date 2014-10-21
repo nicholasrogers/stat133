@@ -73,9 +73,9 @@ boxplot(rain)
 ## Precipitation should go on the y-axis and day on the x-axis
 ## Make new labels for the x- and y-axis.
 ## Hint: the date information is stored in the object day.
-xx <- c(day[1])
-yy <- c(rain[1])
-#plot(xx,yy, xlab = "Day", ylab = "Precipitation")
+xx <- day$st050183
+yy <- rain$st050183
+plot(xx,yy, xlab = "Day", ylab = "Precipitation", xlim=c(2000.0,2000.9999999))
 ########################################### THIRD PART
 #### Load in the infant data
 load("KaiserBabies.rda")
