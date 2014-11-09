@@ -1,17 +1,11 @@
 #################################################################################
 #### Functions for BML Simulation Study
 
-
-#### Initialization function.
-## Input : size of grid [r and c] and density [p]
-## Output : A matrix [m] with entries 0 (no cars) 1 (red cars) or 2 (blue cars)
-## that stores the state of the system (i.e. location of red and blue cars)
-
-#This is a functin I wrote in order to handle the unique cases of matricies where there are only 2 unique 
+############NOTE: This is a functin I wrote in order to handle the unique cases of matricies where there are only 2 unique 
 #numbers or 1 row and n collumns such that the colours are always assinged the same way, 0 to White, 1 to 
 #Red, and 2 to Blue. 
 
-matrix.image <- function(m)
+matrix.image <- function(m, lock)
 {
   x <- (0 %in% m) 
   y <- (1 %in% m) 
@@ -68,9 +62,16 @@ matrix.image <- function(m)
     image(t(m), col = clrs)
   } 
   else {
-    image(t(apply(m, 2, rev)), col = clrs)
+    image(t(apply(m, 2, rev)), col = clrs, main = c(lock))
   }
 }
+
+
+#### Initialization function.
+## Input : size of grid [r and c] and density [p]
+## Output : A matrix [m] with entries 0 (no cars) 1 (red cars) or 2 (blue cars)
+## that stores the state of the system (i.e. location of red and blue cars)
+
 
 
 
@@ -86,7 +87,7 @@ bml.init <- function(r, c, p){
      } 
   }
  m <- matrix(num.cars.vector, nrow = r, ncol = c)
-matrix.image(m) 
+matrix.image(m, "Initial State of System") 
  return(m)
 }
 
@@ -165,29 +166,31 @@ grid.new <- FALSE %in% grid.fresh
 return(list(o, grid.new))
 }
 
-#image(t(apply(o[[1]], 2, rev)), col = c("White", "Red", "Blue"))
 
 #### Function to do a simulation for a given set of input parameters
 ## Input : size of grid [r and c] and density [p]
 ## Output : *up to you* (e.g. number of steps taken, did you hit gridlock, ...)
 
-bml.sim <- function(r, c, p) 
+#t is the number of steps the functions runs and the output i is the last step number taken. 
+
+bml.sim <- function(r, c, p, t = 10000) 
   {
      m <- bml.init(r, c, p)
      n <- m
      o <- bml.step(n)
-     steps <- 0
-     for(i in 1:10000)
-      {
-        if(o[[2]] == TRUE)
-          {
-            m <- o[[1]]
-            steps <- i
-          }
-            else
-          { 
-            stop 
-          }
+     i <- 1
+     while(o[[2]] == TRUE & (i < t))
+     {
+       m <- o[[1]]
+       n <- m 
+       o <- bml.step(n)
+       i <- i + 1
      }
-    return(list(o[[2]], steps))
+     if(o[[2]] == FALSE)
+     {
+       matrix.image(o[[1]], "Gridlocked System")
+     }
+     return(list(o[[2]], i))
   }
+       
+     
