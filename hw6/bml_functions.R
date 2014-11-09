@@ -171,43 +171,23 @@ return(list(o, grid.new))
 ## Input : size of grid [r and c] and density [p]
 ## Output : *up to you* (e.g. number of steps taken, did you hit gridlock, ...)
 
-bml.sim <- function(r, c, p)
-{
-  prct <- bml.init(r, c, p)
-  prct <- bml.step(prct)
-  if(prct[[2]] == TRUE)
-  { 
-    prct <- bml.step(prct)
-  } 
-  if(prct[[2]] == FALSE)
-  { 
-    stop
-  } 
-  
-}
-
-
 bml.sim <- function(r, c, p) 
   {
-    for(i in 1:10)
-    {
-      repeat
-      {
      m <- bml.init(r, c, p)
      n <- m
-     o <- bml.step(n) 
-    if(identical(m, o) == FALSE) 
+     o <- bml.step(n)
+     steps <- 0
+     for(i in 1:10000)
       {
-        m <- o
-      }
-        else 
+        if(o[[2]] == TRUE)
           {
-            stop
+            m <- o[[1]]
+            steps <- i
           }
-      }
-            return(identical(m, o))
-    }
-}
-
-
-bml.rsim <- replicate(10, bml.sim(4, 4, .4))
+            else
+          { 
+            stop 
+          }
+     }
+    return(list(o[[2]], steps))
+  }
