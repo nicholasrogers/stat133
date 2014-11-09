@@ -128,10 +128,10 @@ removeOutliers <- function(data, max.outlier.rate) {
 #   levels. This must be in the form of a num.factors x num.numeric.variables
 #   matrix.
 
-meanByLevel <- function(data) {
+#meanByLevel <- function(data) {
 
         
-}
+#}
 
 #tryCatch(checkIdentical(mean.by.level.t, meanByLevel(iris), checkNames=F),
          #error=function(err) errMsg(err))
