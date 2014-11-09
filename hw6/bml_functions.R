@@ -4,7 +4,8 @@
 ############NOTE: This is a functin I wrote in order to handle the unique cases of matricies where there are only 2 unique 
 #numbers or 1 row and n collumns such that the colours are always assinged the same way, 0 to White, 1 to 
 #Red, and 2 to Blue. 
-
+####I have built the image functions into the bml.init and bml.sim functions, but comment them out such that
+####they are replicated say 100 times, it doesn't plot 100+ images. 
 matrix.image <- function(m, lock)
 {
   x <- (0 %in% m) 
@@ -87,7 +88,7 @@ bml.init <- function(r, c, p){
      } 
   }
  m <- matrix(num.cars.vector, nrow = r, ncol = c)
-matrix.image(m, "Initial State of System") 
+######matrix.image(m, "Initial State of System") 
  return(m)
 }
 
@@ -172,6 +173,8 @@ return(list(o, grid.new))
 ## Output : *up to you* (e.g. number of steps taken, did you hit gridlock, ...)
 
 #t is the number of steps the functions runs and the output i is the last step number taken. 
+#It only outputs a plot if the system results in gridlock. If the system is free flowing, the output will
+#return true. 
 
 bml.sim <- function(r, c, p, t = 10000) 
   {
@@ -186,10 +189,10 @@ bml.sim <- function(r, c, p, t = 10000)
        o <- bml.step(n)
        i <- i + 1
      }
-     if(o[[2]] == FALSE)
-     {
-       matrix.image(o[[1]], "Gridlocked System")
-     }
+#####     if(o[[2]] == FALSE)
+#####     {
+#####       matrix.image(o[[1]], "Gridlocked System")
+#####     }
      return(list(o[[2]], i))
   }
        
