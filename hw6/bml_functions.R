@@ -7,16 +7,86 @@
 ## Output : A matrix [m] with entries 0 (no cars) 1 (red cars) or 2 (blue cars)
 ## that stores the state of the system (i.e. location of red and blue cars)
 
+#This is a functin I wrote in order to handle the unique cases of matricies where there are only 2 unique 
+#numbers or 1 row and n collumns such that the colours are always assinged the same way, 0 to White, 1 to 
+#Red, and 2 to Blue. 
+
+matrix.image <- function(m)
+{
+  x <- (0 %in% m) 
+  y <- (1 %in% m) 
+  z <- (2 %in% m)  
+  if(x == TRUE)
+  {
+    if(y == TRUE)
+    {
+      if(z == TRUE)
+      {
+        clrs = c("White", "Red", "Blue") 
+      }
+      if(z == FALSE)
+      {
+        clrs = c("White", "Red") 
+      }
+    }
+    if(y == FALSE)
+    {
+      if(z == TRUE)
+      {
+        clrs = c("White", "Blue")
+      }
+      if(z == FALSE)
+      {
+        clrs = c("White")
+      }
+    }
+  }
+  if(x == FALSE)
+  {
+    if(y == TRUE)
+    {
+      if(z == TRUE)
+      {
+        clrs = c("Red", "Blue") 
+      }
+      if(z == FALSE)
+      {
+        clrs = c("Red") 
+      }
+    }
+    if(y == FALSE)
+    {
+      if(z == TRUE)
+      {
+        clrs = c("Blue")
+      }
+      
+    }
+  }
+  if(nrow(m) == 1)
+  {
+    image(t(m), col = clrs)
+  } 
+  else {
+    image(t(apply(m, 2, rev)), col = clrs)
+  }
+}
+
+
+
+
+
 bml.init <- function(r, c, p){
+  stopifnot(r>=0, c>=0, p>=0, 1>=p)
  grid.size <- r*c 
  num.cars.vector <- replicate(grid.size, sample(0:1, 1, prob = c(1-p, p)))
-#this function does not allow for zero cars on a grid
    for(i in 1:grid.size){
      if(num.cars.vector[i] == 1){
        num.cars.vector[i] <- sample(1:2, 1, prob = c(.5, .5))
      } 
   }
  m <- matrix(num.cars.vector, nrow = r, ncol = c)
+matrix.image(m) 
  return(m)
 }
 
@@ -28,9 +98,12 @@ bml.init <- function(r, c, p){
 ## NOTE : the function should move the red cars once and the blue cars once,
 ## you can write extra functions that do just a step north or just a step east.
 
+
 bml.step <- function(m){
 n <- m 
-for(i in 1:nrow(m))
+if(ncol(m) > 1)
+{
+  for(i in 1:nrow(m))
   {
     for(j in 1:(ncol(m) - 1))
       {
@@ -52,7 +125,14 @@ for(i in 1:nrow(m))
           }
       }
   }
+}
+if(ncol(m) == 1)
+{ 
+  n <- m
+}
 o <- n 
+if(nrow(n) > 1) 
+{
 for(j in 1:ncol(n))
 {
   for(i in 2:nrow(n))
@@ -75,6 +155,11 @@ for(j in 1:ncol(n))
     }
   }
 }
+}
+if(nrow(n) == 1)
+{
+  o <- n
+}
 grid.fresh <- o == m
 grid.new <- FALSE %in% grid.fresh
 return(list(o, grid.new))
@@ -86,6 +171,43 @@ return(list(o, grid.new))
 ## Input : size of grid [r and c] and density [p]
 ## Output : *up to you* (e.g. number of steps taken, did you hit gridlock, ...)
 
-bml.sim <- function(r, c, p){
-
+bml.sim <- function(r, c, p)
+{
+  prct <- bml.init(r, c, p)
+  prct <- bml.step(prct)
+  if(prct[[2]] == TRUE)
+  { 
+    prct <- bml.step(prct)
+  } 
+  if(prct[[2]] == FALSE)
+  { 
+    stop
+  } 
+  
 }
+
+
+bml.sim <- function(r, c, p) 
+  {
+    for(i in 1:10)
+    {
+      repeat
+      {
+     m <- bml.init(r, c, p)
+     n <- m
+     o <- bml.step(n) 
+    if(identical(m, o) == FALSE) 
+      {
+        m <- o
+      }
+        else 
+          {
+            stop
+          }
+      }
+            return(identical(m, o))
+    }
+}
+
+
+bml.rsim <- replicate(10, bml.sim(4, 4, .4))
