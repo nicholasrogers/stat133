@@ -4,8 +4,10 @@
 ############NOTE: This is a functin I wrote in order to handle the unique cases of matricies where there are only 2 unique 
 #numbers or 1 row and n collumns such that the colours are always assinged the same way, 0 to White, 1 to 
 #Red, and 2 to Blue. 
-####I have built the image functions into the bml.init and bml.sim functions, but comment them out such that
-####they are replicated say 100 times, it doesn't plot 100+ images. 
+####I have built the image functions into the bml.init and bml.sim functions, but you may want to 
+####comment them out such that if they are replicated say 100 times, it doesn't plot 100+ images. 
+
+
 matrix.image <- function(m, lock)
 {
   x <- (0 %in% m) 
