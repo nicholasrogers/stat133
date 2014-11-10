@@ -1,0 +1,88 @@
+Brief Description of the Simulation: 
+
+  I ran the simulation for two different grid sizes and for three different density values. Each simulation 
+was replicated one hundred times in order to perform summary statistics on a larger group of data. In 
+replication of the simulation, by default, the maximum number of steps taken was given to be ten thousand. 
+I chose ten thousand steps because of the size of the grids, taking into consideration computing time. 
+
+Results of a Set of Replications: 
+
+  For running the following code: bml.repl(100, 10, 10, .32)
+    A 10x10 grid with a density of .32. The resulting proportion of simulations that ended in gridlock of 
+the 100 replications came out to be 0.There were no instances of gridlock and all simulations reached the 
+end of the 10,000 steps. 
+
+  For running the following code: bml.repl(100, 10, 10, .5)
+    A 10x10 grid with a density of .5. The resulting proportion of siulations that ended in gridlock of the 
+100 replications cam out to be .52. Summary stastics on the number of steps not taken by the simulations 
+that ended in gridlock are listed here: 
+                                   
+Min.   1st Qu.  Median     Mean     3rd Qu.      Max. 
+0       0      4159      4836      9876        9987
+
+And the standard deviation for that set of observations was: 4813.304. 
+
+  For running the following code: bml.repl(100, 10, 10, .8)
+    A 10x10 grid with a density of .8. The resulting proportion of simulations that ended in gridlock of the 
+100 replications came out to be 1. Every simulations resulted in gridlock. Summary statistics on the number 
+of steps not taken by the simulations that ended in gridlock are listed here: 
+
+Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+9956    9980    9986    9984    9990    9994 
+
+And the standard deviation for that set of observations was: 8.221989. 
+
+  For running the following code: bml.repl(100, 20, 20, .32)
+    A 20x20 grid with density .32. The resulting proportion of siulations that ended in gridlock of the 100 
+replications cam out to be 0. There were zero instances of gridlock and all simulations reached the end of 
+the 10,000 steps. 
+
+  For funning the following code: bml.repl(100, 20, 20, .5)
+    A 20x20 grid with density .5. The resulting proportion of siulations that ended in gridlock of the 100 
+replications cam out to be .96. Summary statistics on the number of steps not taken by the simulations that 
+ended in gridlock are listed here: 
+
+Min. 1st Qu.  Median    Mean    3rd Qu.    Max. 
+0    9138     9731     8929    9900       9956 
+
+And the standard deviation for that set of observations was: 2203.933. 
+
+  For running the following code: bml.repl(100, 20, 20, .8)
+    A 20x20 grid with density .8. The resulting proportion of siulations that ended in gridlock of the 100 
+replications cam out to be 1. Every simulations resulted in gridlock. Summary statistics on the number of 
+steps not taken by the simulations that ended in gridlock are listed here:
+
+Min.    1st Qu.  Median    Mean    3rd Qu.    Max. 
+9936    9965       9974    9971    9979       9991 
+
+And the standar deviation for that set of observations was: 11.46365
+
+BML Simulations Questions: 
+
+1. For what values of p, the density of the grid, did you ???nd free ???owing traffic and
+traffic jams? Did you ???nd any cases of a mixture of jams and free ???owing traffic?
+  
+  From these simulations, and others, it seems as though a density of nearly .32 is where most grids greater 
+than or equal to 10x10 begin to have incidences of gridlock. Densities below these values result in nearly if 
+not all simulations of free flow termination. As the densities neared .5, more and more grids began to result 
+in gridlock. At a density of .8 all grids resulted in gridlock. 
+
+2. How many simulation steps did you need to run before observing this behavior?
+  
+  For the 10x10 grid with a density of .5, of the systems that ended in gridlock, they on average got 
+through half of the maximum number of steps, roughly 5000 steps. Compared to the larger 20x20 grid with 
+the same density, these systems on average only made it 70 steps. It would appear these density changes 
+had a greater effect on the larger grid size. For the 10x10 grid of density .8, it took, on average, 16 
+steps to reach gridlock. For the same setup on the 20x20 grid, it took 29 steps on average. 
+
+3. Does the transition depend on the size or shape of the grid?
+
+  I would conclude, yes. All other things constant, it would seem that changing the size of the grid, in 
+this instance from 10x10 to 20x20 does indeed have an effect on the proportion of grids that result in 
+gridlock. For the same desnity of .5, many more of the 10x10 grids ended in free flow than did the 20x20 
+grids, a difference of .44.The smaller grid would appear to have an advantage over the larger grids for 
+higher densities.  
+
+
+
+
