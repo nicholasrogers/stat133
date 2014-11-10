@@ -88,7 +88,7 @@ bml.init <- function(r, c, p){
      } 
   }
  m <- matrix(num.cars.vector, nrow = r, ncol = c)
-######matrix.image(m, "Initial State of System") 
+matrix.image(m, "Initial State of System") 
  return(m)
 }
 
@@ -189,10 +189,10 @@ bml.sim <- function(r, c, p, t = 10000)
        o <- bml.step(n)
        i <- i + 1
      }
-#####     if(o[[2]] == FALSE)
-#####     {
-#####       matrix.image(o[[1]], "Gridlocked System")
-#####     }
+     if(o[[2]] == FALSE)
+     {
+       matrix.image(o[[1]], "Gridlocked System")
+     }
      return(list(o[[2]], i))
   }
        

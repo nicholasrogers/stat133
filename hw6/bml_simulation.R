@@ -9,8 +9,8 @@
 
 #### This function performs a replication of the simulation for a given [n] number of times. 
 #### It returns a list with three elements. The first of which is the proportion of gridlock systems
-#### of the [n] replications. The seoncond are summary statstics on the number of steps it took the gridlock
-#### systems to reach gridlock. The third is the standard deviation fo the number of steps it took the 
+#### of the [n] replications. The seoncond are summary statstics on the number of steps remaining after 
+#### the system reached gridlock. The third is the standard deviation fo the number of steps it took the 
 #### gridlock systems to reach gridlock. 
 
 bml.repl <- function(n, r, c, p)
