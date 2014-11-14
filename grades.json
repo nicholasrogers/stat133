@@ -95,6 +95,23 @@
                     "earned": 4
                 }
             }
+        }, 
+        "midterm": {
+            "note": "", 
+            "hash": "0a30ca08347e85e2d2c2b876f0ccfccd02f77fae", 
+            "earned": 19, 
+            "possible": 24, 
+            "penalty": 0, 
+            "parts": {
+                "midterm_fig": {
+                    "possible": 7, 
+                    "earned": 7
+                }, 
+                "midterm": {
+                    "possible": 17, 
+                    "earned": 12
+                }
+            }
         }
     }, 
     "section": "lab1"
