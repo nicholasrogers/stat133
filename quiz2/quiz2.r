@@ -9,7 +9,8 @@
 # Output: <num>: a Poisson(k) random variable (a single number)
 
 num_students <- function(k) {
-  # your code here 
+  num <- rpois(1, k)
+  return(num)
 }
 
 # Assume all students arrive at different times.
@@ -27,7 +28,8 @@ num_students <- function(k) {
 # random variables (a vector of length num)
 
 interarrival_times <- function(num) {
-  # your code here 
+  inter <- rexp(num, rate = 1/4)
+  return(inter)
 }
 
 # For student i, it takes Z_i minutes for Johnny to answer questions.
@@ -42,7 +44,8 @@ interarrival_times <- function(num) {
 # random variables (a vector of length num)
 
 service_times <- function(num) {
-  # your code here 
+  serv <- rexp(num, rate = 1/6)
+  return(serv)
 }
 
 # Compute the waiting time for each student.
@@ -66,7 +69,22 @@ service_times <- function(num) {
 # <wait>: a vector that contains the waiting time for each student
 
 waiting_times <- function(inter, serv){
-  # your code here 
+  wait <- NULL
+  for(i in 1:length(inter))
+  {
+    if(i == 1)
+    {
+      wait <- 0
+    } else
+    {
+      wait[i] <- serv[i-1] + wait[i-1] - inter[i]
+    }
+    if(wait[i] < 0)
+    {
+      wait[i] <- 0
+    }
+  }
+    return(wait)
 }
 
 # Simulation
@@ -81,14 +99,20 @@ waiting_times <- function(inter, serv){
 #   total: total times spent in Johnny's OH (serv + wait)
 
 queueing_sim <- function(k) {
-  # your code here 
+  num <- num_students(k)
+  inter <- interarrival_times(num)
+  serv <- service_times(num)
+  wait <- waiting_times(inter, serv)
+  total <- serv + wait
+  frame <- matrix(c(inter, serv, wait, total), nrow = length(inter), byrow = TRUE)
+  return(frame)
 }
 
 set.seed(1234)
 # Run the simulation 500 times with k = 10. 
 # Save the output in a variable called sim500.
 # sim500 is a list of 500 data frames.
-# sim500 <- your code here
+sim500 <- list(replicate(500, queueing_sim(10)))
 
 
 
@@ -97,7 +121,14 @@ set.seed(1234)
 # the average total time spent in OH.
 # Save the result in a matrix called avg_wait_total.
 # avg_wait_total is a 2x500 matrix (without any row names or column names).
-# avg_wait_total <- your code here
+avgwait <- NULL
+avgtotal <- NULL
+for(i in 1:500)
+{
+  avgwait[i] <- mean(sim500[[1]][[i]][,3])
+  avgtotal[i] <- mean(sim500[[1]][[i]][,4])
+}
+avg_wait_total <- matrix(c(avgwait, avgtotal), nrow = 500, byrow = TRUE)
 
 
 
@@ -125,7 +156,8 @@ set.seed(1234)
 # <br_times>: a numeric vector of break times
 
 break_times <- function(n){
-  # your code here
+  br_times <- rnorm(n, mean = 2, sd = 2)
+  return(br_times)
 }
 
 # Write a function called serv_wait_sick that computes
@@ -144,7 +176,15 @@ break_times <- function(n){
 # Remark: There is no randomness in this function.
 
 serv_wait_sick <- function(inter, serv, br_times){
-  # your code here
+  for(i in 1:(length(inter)))
+  {
+    inter[2*i] <- inter[i] + br_times[i]
+    if(i >= 6)
+    {
+      serv[i] <- serv[i]*1.5
+    }
+  }
+  
 }
 
 # End of quiz.
