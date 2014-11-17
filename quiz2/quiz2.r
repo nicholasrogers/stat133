@@ -175,25 +175,25 @@ break_times <- function(n){
 #    <wait>: a vector of the waiting times
 # Remark: There is no randomness in this function.
 
-serv_wait_sick <- function(inter, serv, br_times){
-  for(i in 1:(length(inter)))
-  {
-    inter[2*i] <- inter[i] + br_times[i]
-    if(i >= 6)
-    {
-      serv[i] <- serv[i]*1.5
-    }
-  }
+#serv_wait_sick <- function(inter, serv, br_times){
+#  for(i in 1:(length(inter)))
+#  {
+#    inter[2*i] <- inter[i] + br_times[i]
+#    if(i >= 6)
+#    {
+#      serv[i] <- serv[i]*1.5
+#    }
+#  }
   
-}
+#}
 
 # End of quiz.
 
 # Just a test case for break_times and a test case for waiting_times_sick. 
 # No need to modify the following code.
 # If your functions work properly, the following code should return TRUE.
-set.seed(12)
-all.equal(break_times(3), c(0.000000, 4.230454, 0.646959), tolerance = 0.001)
-all.equal(serv_wait_sick(rep(10, 10), rep(10, 10), c(0, 1, 3, 2, 1)), 
-          data.frame(serv = c(10,10,10,10,10,15,15,15,15,15), 
-                     wait = c(0,0,0,0,1,16,24,29,36,41)))
+#set.seed(12)
+#all.equal(break_times(3), c(0.000000, 4.230454, 0.646959), tolerance = 0.001)
+#all.equal(serv_wait_sick(rep(10, 10), rep(10, 10), c(0, 1, 3, 2, 1)), 
+#          data.frame(serv = c(10,10,10,10,10,15,15,15,15,15), 
+#                     wait = c(0,0,0,0,1,16,24,29,36,41)))
