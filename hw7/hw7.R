@@ -85,12 +85,19 @@ speeches <- gsub("Mrs.", "Mrs", speeches)
 speeches <- gsub("U.S.", "US", speeches)
 
 speechesL <- list()
+
+speechfiletxt <- paste(speeches, collapse = " ") 
+speechsubq <- gsub("\\. ", "\\.~", speechfiletxt)
+speechsubqe <- gsub("\\!", "\\!~", speechsubq) 
+speechsubqep <- gsub("\\.", "\\.~", speechsubqe)
+listofspeeches <- strsplit(speechfiletxt, "\\*{3}")
+speechesL <- lapply(listofspeeches, function(x) strsplit(x, "~"))
+
 for(i in 1:n.speeches){
-  speechfiletxt <- paste(speeches, collapse = " ") 
-  listofspeeches <- lapply(list(strsplit(speechfiletxt, "\\*{3}")), function(x) strsplit(x, "[\\.?!]"))
+  
 }
 
-#### Word Vectors 
+#### Word Vectors
 # For each speech we are going to collect the following information:
 # -- # of sentences
 # -- # of words
