@@ -87,7 +87,7 @@ speeches <- gsub("U.S.", "US", speeches)
 speechesL <- list()
 for(i in 1:n.speeches){
   speechfiletxt <- paste(speeches, collapse = " ") 
-  listofspeeches <- strsplit(speechfiletxt, "\\*{2}")
+  listofspeeches <- lapply(list(strsplit(speechfiletxt, "\\*{3}")), function(x) strsplit(x, "[\\.?!]"))
 }
 
 #### Word Vectors 
