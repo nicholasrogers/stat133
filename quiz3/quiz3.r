@@ -1,3 +1,5 @@
+### Here = TRUE
+here = TRUE
 # Quiz 3
 # Number of Problems: 6
 # The quiz is out of 22 points.
@@ -13,7 +15,9 @@
 #     symbol. For example: numAtElements(c('karl', 'k@rl', '@@@')) should return 2
 numAtElements <- function(chvec){
   
-  # your code here
+  num.elements <- grep("@", chvec)
+  num.at <- length(num.elements)
+  return(num.at)
 }
 
 # Function 2 (3 points)
@@ -26,7 +30,8 @@ numAtElements <- function(chvec){
 #     replaced by . symbols
 unexclaim <- function(chstring) {
   
-  # your code here
+  newstring <- gsub("\\!", "\\.", chstring)
+  return(newstring)
 }
 
 # Function 3 (3 points)
@@ -43,7 +48,10 @@ unexclaim <- function(chstring) {
 #     return 'May, 2015'.
 updateDate <- function(dates, old.yr) {
   
-  # your code here
+  pickdates <- grep(old.yr, dates)
+  subsetdates <- dates[pickdates] 
+  updated.dates <- gsub(old.yr, "2015", subsetdates)
+  return(updated.dates)
 }
 
 # Function 4 (4 points)
@@ -60,7 +68,14 @@ updateDate <- function(dates, old.yr) {
 #                     3   1
 countcatdog<- function(chvec){
   
-  # your code here
+  num.cat <- gregexpr("cat", chvec)[[1]][1:nchar(chvec)]
+  num.dog <- gregexpr("dog", chvec)[[1]][1:nchar(chvec)] 
+  
+  num.vec <- c(length(num.cat), length(num.dog)) 
+  names(num.vec) <- c("cat", "dog") 
+  counts <- num.vec[c("cat", "dog")]
+  return(counts)
+  
 }
 
 # Function 5 (3 points)
@@ -73,7 +88,7 @@ countcatdog<- function(chvec){
 #   <total>: A single number (the sum of all the digits in chvec)
 sumDigits <- function(chvec){
 
-  # your code here
+  allnumbers <- 
 }
 
 # Some test cases:
