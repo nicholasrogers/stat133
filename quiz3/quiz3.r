@@ -88,7 +88,11 @@ countcatdog<- function(chvec){
 #   <total>: A single number (the sum of all the digits in chvec)
 sumDigits <- function(chvec){
 
-  allnumbers <- 
+  thesplit <- c(unlist(strsplit(chvec, " ")))
+  checknum <- grep("[[:digit:]]", thesplit)
+  subsetvec <- thesplit[checknum] 
+  total <- sum(subsetvec)
+  return(total)
 }
 
 # Some test cases:
