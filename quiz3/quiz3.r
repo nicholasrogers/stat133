@@ -68,8 +68,8 @@ updateDate <- function(dates, old.yr) {
 #                     3   1
 countcatdog<- function(chvec){
   
-  num.cat <- gregexpr("cat", chvec)[[1]][1:nchar(chvec)]
-  num.dog <- gregexpr("dog", chvec)[[1]][1:nchar(chvec)] 
+  num.cat <- grep("cat", unlist(strsplit(chvec, " ")))
+  num.dog <- grep("dog", unlist(strsplit(chvec, " ")))
   
   num.vec <- c(length(num.cat), length(num.dog)) 
   names(num.vec) <- c("cat", "dog") 
